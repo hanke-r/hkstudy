@@ -1,4 +1,4 @@
-package com.hanker;
+package com.hanker.mail;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;

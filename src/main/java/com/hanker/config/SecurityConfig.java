@@ -19,6 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/email-login", "/check-email-login", "/login-link").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                 .anyRequest().authenticated();
+
     }
 
     // static security 무시
