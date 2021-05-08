@@ -1,6 +1,7 @@
 package com.hanker.account;
 
 import com.hanker.domain.Account;
+import com.hanker.settings.Profile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -85,5 +86,15 @@ public class AccountService implements UserDetailsService {
     public void completeSignUp(Account account) {
         account.completeSignUp();
         login(account);
+    }
+
+    public void updateProfile(Account account, Profile profile) {
+        account.setBio(profile.getBio());
+        account.setOccupation(profile.getOccupation());
+        account.setLocation(profile.getLocation());
+        account.setUrl(profile.getUrl());
+
+        accountRepository.save(account);
+
     }
 }
