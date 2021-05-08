@@ -3,18 +3,18 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
-  <meta charset="UTF-8">
-  <title>hkStudy</title>
-  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
-  <script src="/node_modules/jquery/dist/jquery.js"></script>
-  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-  <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
-  <style>
-    .container{
-      max-width: 100%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>hkStudy</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
+    <style>
+        .container{
+          max-width: 100%;
+        }
+    </style>
 </head>
 
 <nav th:fragment="main-nav" class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -80,3 +80,23 @@
     <small class="d-block mb-3 text-muted">&copy; 2020</small>
   </div>
 </footer>
+
+<script type="application/javascript" th:fragment="form-validation">
+  (function(){
+    'use strict';
+
+    window.addEventListener('load', function(){
+      var forms = document.getElementsByClassName('needs-validation');
+
+      Array.prototype.filter.call(forms, function(form){
+        form.addEventListener('submit', function(event){
+          if(form.checkValidity() === false){
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated')
+        }, false);
+      })
+    }, false)
+  }())
+</script>
