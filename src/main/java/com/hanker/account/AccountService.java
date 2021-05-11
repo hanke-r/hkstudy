@@ -49,7 +49,6 @@ public class AccountService implements UserDetailsService {
         javaMailSender.send(mailMessage);
     }
 
-
     public Account processNewAccount(SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm);
         newAccount.generateEmailCheckToken();
@@ -93,8 +92,13 @@ public class AccountService implements UserDetailsService {
         account.setOccupation(profile.getOccupation());
         account.setLocation(profile.getLocation());
         account.setUrl(profile.getUrl());
+        account.setProfileImage(profile.getProfileImage());
 
         accountRepository.save(account);
+    }
 
+    public void updatePassword(Account account, String newPassword) {
+        account.setPassword(passwordEncoder.encode(newPassword));
+        accountRepository.save(account);
     }
 }
