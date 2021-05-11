@@ -160,6 +160,7 @@
 			   $cutBtn.hide();
 			   $confirmBtn.hide();
 			   $profileImage.val('');
+			   $("#profile-image-file").val('');
 			});
 
 			$cutBtn.click(function (){
@@ -172,13 +173,15 @@
 			   $resultImage.show();
 			   $confirmBtn.show();
 
-			   $confirmBtn.click(function (){
-			      $newProfileImage.html(newImage);
-			      $cutBtn.hide();
-			      $confirmBtn.hide();
-			      $profileImage.val(dataUrl);
-			   });
+                $confirmBtn.click(function (){
+                    $newProfileImage.html(newImage);
+                    $cutBtn.hide();
+                    $confirmBtn.hide();
+                    $profileImage.val(dataUrl);
+                });
 			});
+
+
 		});
 	</script>
 </body>
