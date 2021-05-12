@@ -1,6 +1,7 @@
-package com.hanker.settings;
+package com.hanker.settings.validator;
 
 
+import com.hanker.settings.form.PasswordForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

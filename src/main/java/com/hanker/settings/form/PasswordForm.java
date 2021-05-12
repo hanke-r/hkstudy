@@ -1,4 +1,4 @@
-package com.hanker.settings;
+package com.hanker.settings.form;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

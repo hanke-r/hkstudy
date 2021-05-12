@@ -1,9 +1,10 @@
 package com.hanker.account;
 
 import com.hanker.domain.Account;
-import com.hanker.settings.Notifications;
-import com.hanker.settings.Profile;
+import com.hanker.settings.form.Notifications;
+import com.hanker.settings.form.Profile;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +27,7 @@ public class AccountService implements UserDetailsService {
     private final AccountRepository accountRepository;
     private final JavaMailSender javaMailSender;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     private Account saveNewAccount(SignUpForm signUpForm) {
         Account account = Account.builder()
@@ -89,12 +91,7 @@ public class AccountService implements UserDetailsService {
     }
 
     public void updateProfile(Account account, Profile profile) {
-        account.setBio(profile.getBio());
-        account.setOccupation(profile.getOccupation());
-        account.setLocation(profile.getLocation());
-        account.setUrl(profile.getUrl());
-        account.setProfileImage(profile.getProfileImage());
-
+        modelMapper.map(profile, account);
         accountRepository.save(account);
     }
 
@@ -104,13 +101,22 @@ public class AccountService implements UserDetailsService {
     }
 
     public void updateNotifications(Account account, Notifications notifications) {
-        account.setStudyCreatedByWeb(notifications.isStudyCreatedByWeb());
-        account.setStudyCreateByEmail(notifications.isStudyCreatedByEmail());
-        account.setStudyUpdatedByWeb(notifications.isStudyUpdatedByWeb());
-        account.setStudyUpdatedByEmail(notifications.isStudyUpdatedByEmail());
-        account.setStudyEnrollmentResultByWeb(notifications.isStudyEnrollmentResultByWeb());
-        account.setStudyEnrollmentResultByEmail(notifications.isStudyEnrollmentResultByEmail());
-
+        modelMapper.map(notifications, account);
         accountRepository.save(account);
+    }
+
+    public void updateNickname(Account account, String nickname) {
+        account.setNickname(nickname);
+        accountRepository.save(account);
+        login(account);
+    }
+
+    public void sendLoginLink(Account account) {
+        account.generateEmailCheckToken();
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(account.getEmail());
+        mailMessage.setSubject("hkStudy, 로그인 링크");
+        mailMessage.setText("/login-by-email?token=" + account.getEmailCheckToken() + "&email=" + account.getEmail());
+        javaMailSender.send(mailMessage);
     }
 }
