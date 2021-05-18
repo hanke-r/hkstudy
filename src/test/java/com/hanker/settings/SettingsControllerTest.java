@@ -113,8 +113,8 @@ class SettingsControllerTest {
     @DisplayName("계정의 태그 수정 폼")
     @Test
     void updateTagsForm() throws Exception{
-        mockMvc.perform(get(SettingsController.TAGS))
-                .andExpect(view().name(ROOT + SETTINGS + TAGS))
+        mockMvc.perform(get(ROOT + SETTINGS + TAGS))
+                .andExpect(view().name( SETTINGS + TAGS))
                 .andExpect(model().attributeExists("account"))
                 .andExpect(model().attributeExists("whitelist"))
                 .andExpect(model().attributeExists("tags"));
