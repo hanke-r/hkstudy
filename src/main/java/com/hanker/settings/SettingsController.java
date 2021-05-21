@@ -11,6 +11,7 @@ import com.hanker.settings.form.*;
 import com.hanker.settings.validator.NicknameValidator;
 import com.hanker.settings.validator.PasswordFormValidator;
 import com.hanker.tag.TagRepository;
+import com.hanker.tag.TagService;
 import com.hanker.zone.ZoneRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -49,6 +50,7 @@ public class SettingsController {
     private final TagRepository tagRepository;
     private final ObjectMapper objectMapper;
     private final ZoneRepository zoneRepository;
+    private final TagService tagService;
 
 
     @InitBinder("passwordForm")
@@ -143,8 +145,7 @@ public class SettingsController {
     @PostMapping(TAGS + "/add")
     @ResponseBody
     public ResponseEntity addTags(@CurrentUser Account account, @RequestBody TagForm tagForm){
-        String title = tagForm.getTagTitle();
-        Tag tag = tagRepository.findByTitle(title);
+        Tag tag = tagService.findOrCreateNew(tagForm.getTagTitle());
         if(tag == null) {
             tag = tagRepository.save(Tag.builder().title(tagForm.getTagTitle()).build());
         }

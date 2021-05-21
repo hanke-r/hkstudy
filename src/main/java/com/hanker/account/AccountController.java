@@ -96,13 +96,10 @@ public class AccountController {
 
     @GetMapping("/profile/{nickname}")
     public String viewProfile(@PathVariable String nickname, Model model, @CurrentUser Account account){
-        Account byNickname = accountRepository.findByNickname(nickname);
-        if(byNickname == null){
-            return "redirect:/login";
-        }
+        Account accoutToView = accountService.getAccount(nickname);
 
-        model.addAttribute(byNickname);
-        model.addAttribute("isOwner", byNickname.equals(account));
+        model.addAttribute(accoutToView);
+        model.addAttribute("isOwner", accoutToView.equals(account));
 
         return "account/profile";
     }
