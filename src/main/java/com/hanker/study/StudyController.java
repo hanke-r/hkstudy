@@ -2,7 +2,9 @@ package com.hanker.study;
 
 import com.hanker.account.CurrentUser;
 import com.hanker.domain.Account;
+import com.hanker.domain.Event;
 import com.hanker.domain.Study;
+import com.hanker.event.EventRepository;
 import com.hanker.study.form.StudyForm;
 import com.hanker.study.validator.StudyFormValidator;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,6 +31,7 @@ public class StudyController {
     private final StudyService studyService;
     private final ModelMapper modelMapper;
     private final StudyFormValidator studyFormValidator;
+    private final EventRepository eventRepository;
 
     @InitBinder("studyForm")
     public void studyFormInitBinder(WebDataBinder webDataBinder){
@@ -87,6 +91,5 @@ public class StudyController {
 
         return "redirect:/study/" + study.getEncodedPath() + "/members";
     }
-
 
 }
