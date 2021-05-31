@@ -4,6 +4,7 @@ import com.hanker.modules.account.Account;
 import com.hanker.modules.account.UserAccount;
 import com.hanker.modules.tag.Tag;
 import com.hanker.modules.zone.Zone;
+import jdk.jfr.Name;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,21 +14,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@NamedEntityGraph(name = "Study.withAll", attributeNodes = {
-        @NamedAttributeNode("tags"),
-        @NamedAttributeNode("zones"),
-        @NamedAttributeNode("managers"),
-        @NamedAttributeNode("members")})
-@NamedEntityGraph(name = "Study.withTagsAndManagers", attributeNodes = {
-        @NamedAttributeNode("tags"),
-        @NamedAttributeNode("managers")})
-@NamedEntityGraph(name="Study.withZonesAndManagers", attributeNodes = {
-        @NamedAttributeNode("zones"),
-        @NamedAttributeNode("managers")})
-@NamedEntityGraph(name="Study.withManagers", attributeNodes = {
-        @NamedAttributeNode("managers")})
-@NamedEntityGraph(name="Study.withMembers", attributeNodes = {
-        @NamedAttributeNode("members")})
+
 @Entity
 @Data @EqualsAndHashCode(of = "id")
 @Builder @NoArgsConstructor @AllArgsConstructor
